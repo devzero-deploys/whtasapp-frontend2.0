@@ -18,7 +18,7 @@ function Chat() {
 
   const [loading, setLoading] = useState(true);
 
-  window.onload = setLoading(false);
+  window.onload = () => setLoading(false);
   
   useEffect(_ => {
     getRooms().then(rooms => {
