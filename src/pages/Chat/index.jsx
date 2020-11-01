@@ -18,13 +18,13 @@ function Chat() {
 
   const [loading, setLoading] = useState(true);
 
+  window.onload = setLoading(false);
+  
   useEffect(_ => {
     getRooms().then(rooms => {
       setRooms(rooms);
       setCurrentRoom(rooms[0]);
     });
-
-    window.onload = setTimeout(() => { setLoading(false) }, 1000);
   }, []);
 
   useEffect(_ => {
