@@ -26,7 +26,7 @@ function Chat() {
       setCurrentRoom(rooms[0]);
     });
 
-    setTimeout(() => setLoading(false), 4000);
+    window.onload = () => setLoading(false);
   }, []);
 
   useEffect(_ => {
