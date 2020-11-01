@@ -24,7 +24,7 @@ function Chat() {
       setCurrentRoom(rooms[0]);
     });
 
-    document.onload = () => setLoading(false);
+    window.onload = onLoad()
   }, []);
 
   useEffect(_ => {
@@ -38,6 +38,7 @@ function Chat() {
       cluster: 'eu'
     });
     const messageChannel = pusher.subscribe('messages');
+    const roomChannel = pusher.subscribe('rooms');
 
     messageChannel.bind('inserted', newMessage => {
       if (newMessage.room_id === currentRoom._id) {
@@ -48,6 +49,9 @@ function Chat() {
     return () => {
       messageChannel.unbind_all();
       messageChannel.unsubscribe();
+
+      roomChannel.unbind_all();
+      roomChannel.unsubscribe();
     }
 
   }, [messages, currentRoom._id]);
@@ -88,6 +92,11 @@ function Chat() {
     }
   }, [rooms, currentRoom._id])
 
+  function onLoad() {
+    setLoading(false);
+    console.log('loaded');
+  };
+
   return (
     <>
       {!loading ?
@@ -96,7 +105,7 @@ function Chat() {
             rooms={rooms}
             setRooms={setRooms}
             setCurrentRoom={setCurrentRoom}
-            
+
             showDrop={showDrop}
             setShowDrop={setShowDrop}
           />
@@ -105,14 +114,14 @@ function Chat() {
             setCurrentRoom={setCurrentRoom}
             setRooms={setRooms}
             messages={messages}
-            
+
             showDrop={showDrop}
             setShowDrop={setShowDrop}
           />
         </>
         :
         <LoadingContainer>
-          <img src={loadingSvg} alt="loading"/>
+          <img src={loadingSvg} alt="loading" />
         </LoadingContainer>
       }
     </>
