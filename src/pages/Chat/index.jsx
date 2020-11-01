@@ -38,7 +38,6 @@ function Chat() {
       cluster: 'eu'
     });
     const messageChannel = pusher.subscribe('messages');
-    const roomChannel = pusher.subscribe('rooms');
 
     messageChannel.bind('inserted', newMessage => {
       if (newMessage.room_id === currentRoom._id) {
@@ -49,9 +48,6 @@ function Chat() {
     return () => {
       messageChannel.unbind_all();
       messageChannel.unsubscribe();
-
-      roomChannel.unbind_all();
-      roomChannel.unsubscribe();
     }
 
   }, [messages, currentRoom._id]);
@@ -128,4 +124,4 @@ function Chat() {
   )
 }
 
-export default Chat
+export default Chat;
