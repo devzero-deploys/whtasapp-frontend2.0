@@ -6,7 +6,7 @@ import { getRooms } from '../../services/rooms';
 
 import { SidebarContainer, ChatContainer } from '../../containers';
 
-import { LoadingContainer } from './styles';
+import { ChatWrapper, LoadingContainer } from './styles';
 import loadingSvg from '../../assets/loading.svg';
 
 function Chat() {
@@ -17,8 +17,6 @@ function Chat() {
   const [showDrop, setShowDrop] = useState('');
 
   const [loading, setLoading] = useState(true);
-
-  window.onload = () => setLoading(false);
   
   useEffect(_ => {
     getRooms().then(rooms => {
@@ -88,8 +86,9 @@ function Chat() {
     }
   }, [rooms, currentRoom._id])
 
+
   return (
-    <>
+    <ChatWrapper onLoad={() => setLoading(false)}>
       {!loading ?
         <>
           <SidebarContainer
@@ -115,8 +114,8 @@ function Chat() {
           <img src={loadingSvg} alt="loading" />
         </LoadingContainer>
       }
-    </>
+    </ChatWrapper>
   )
 }
 
-export default Chat;
+export default Chat
