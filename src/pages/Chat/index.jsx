@@ -24,7 +24,7 @@ function Chat() {
       setCurrentRoom(rooms[0]);
     });
 
-    window.onload = onLoad
+    window.onload = setLoading(false);
   }, []);
 
   useEffect(_ => {
@@ -87,11 +87,6 @@ function Chat() {
       roomChannel.unsubscribe();
     }
   }, [rooms, currentRoom._id])
-
-  function onLoad() {
-    setLoading(false);
-    console.log('loaded');
-  };
 
   return (
     <>
