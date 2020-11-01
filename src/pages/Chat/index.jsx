@@ -16,8 +16,6 @@ function Chat() {
 
   const [showDrop, setShowDrop] = useState('');
 
-  const [chatDropdown, setChatDropdown] = useState(false);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(_ => {
